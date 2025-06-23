@@ -7,6 +7,13 @@
     <script src="script.js"></script>
 </head>
 <body>
+    <!-- Botón para ir a la carta -->
+    <div class="nav-button">
+        <a href="carta/carta.html" class="carta-btn">
+            <span class="btn-icon">💌</span>
+            <span class="btn-text">Ver Carta</span>
+        </a>
+    </div>
 
     <div class="rose-container">
         <!-- Tallo de la rosa -->
@@ -100,11 +107,10 @@
                 console.log('Dispositivo móvil detectado');
                 
                 // Actualizar texto de instrucción para móvil
-                instruction.textContent = 'Toca la rosa para ver la magia';
-
-                // Manejar toque en móvil - usar click para mejor compatibilidad
+                instruction.textContent = 'Toca la rosa para ver la magia';                // Manejar toque en móvil - usar click para mejor compatibilidad
                 roseContainer.addEventListener('click', (e) => {
-                    e.preventDefault();
+                    // No prevenir el comportamiento por defecto del click
+                    // para mantener la compatibilidad con eventos táctiles
                     
                     // Vibración táctil si está disponible
                     if (window.RoseUtils && window.RoseUtils.vibrateDevice) {
@@ -136,16 +142,10 @@
                         loveMessage.style.transform = 'translateX(-50%) translateY(0)';
                         isFlowering = false;
                     }
-                });
-
-                // También mantener touchstart para casos específicos
+                });                // Prevenir solo el zoom en touchstart pero permitir la propagación del evento
                 roseContainer.addEventListener('touchstart', (e) => {
-                    e.preventDefault(); // Prevenir zoom en iOS
-                });
-
-                // Prevenir el comportamiento de hover en móvil
-                roseContainer.addEventListener('touchend', (e) => {
-                    e.preventDefault();
+                    // Prevenir solo comportamientos específicos como zoom en iOS
+                    // pero permitir que el evento siga su curso natural para generar el click
                 });
 
             } else {

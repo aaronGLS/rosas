@@ -10,6 +10,97 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+/* Botón de navegación a la carta */
+.nav-button {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 1000;
+    opacity: 0;
+    animation: button-fade-in 2s ease-out 1.5s forwards;
+}
+
+.carta-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 105, 180, 0.15));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 182, 193, 0.3);
+    border-radius: 25px;
+    color: #ffb6c1;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.carta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.carta-btn:hover {
+    background: linear-gradient(135deg, rgba(255, 182, 193, 0.25), rgba(255, 105, 180, 0.25));
+    border-color: rgba(255, 182, 193, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.2);
+    color: #fff;
+}
+
+.carta-btn:hover::before {
+    left: 100%;
+}
+
+.carta-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.15);
+}
+
+.btn-icon {
+    font-size: 16px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.btn-text {
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+@keyframes button-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos generales para centrar la rosa y darle un fondo oscuro */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, #2a2a2a 0%, #1a1a1a 70%, #0f0f0f 100%);
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+}
+
 /* Contenedor principal de la rosa con entrada animada y responsive */
 .rose-container {
     position: relative;
@@ -1060,5 +1151,7 @@ body {
 }
 
 .rose-container.touch-feedback {
-    animation: touch-pulse 0.3s ease-out;
+    /* Usar transform en lugar de animation para evitar conflictos */
+    transform: scale(0.98);
+    transition: transform 0.15s ease-out;
 }

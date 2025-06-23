@@ -10,17 +10,12 @@ function vibrateDevice() {
 
 // Función para feedback visual adicional en toque
 function addTouchFeedback(element) {
-    // Añadir clase temporal para animación de pulsación
+    // Añadir clase temporal para efecto de pulsación
     element.classList.add('touch-feedback');
     
-    // Efecto de escala visual
-    element.style.transform += ' scale(0.98)';
+    // Remover la clase después de la transición para volver al estado normal
     setTimeout(() => {
-        element.style.transform = element.style.transform.replace(' scale(0.98)', '');
-        // Remover la clase después de la animación
-        setTimeout(() => {
-            element.classList.remove('touch-feedback');
-        }, 300);
+        element.classList.remove('touch-feedback');
     }, 150);
 }
 
