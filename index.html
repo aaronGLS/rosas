@@ -86,11 +86,10 @@
             }).onfinish = () => {
                 sparkle.remove();
             };
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
+        }        document.addEventListener('DOMContentLoaded', () => {
             const roseContainer = document.querySelector('.rose-container');
             const instruction = document.querySelector('.instruction');
+            const loveMessage = document.querySelector('.love-message');
             const isMobile = isMobileDevice();
             
             // Variables para controlar el estado en móvil
@@ -101,9 +100,11 @@
                 console.log('Dispositivo móvil detectado');
                 
                 // Actualizar texto de instrucción para móvil
-                instruction.textContent = 'Toca la rosa para ver la magia';                // Manejar toque en móvil
-                roseContainer.addEventListener('touchstart', (e) => {
-                    e.preventDefault(); // Prevenir zoom en iOS
+                instruction.textContent = 'Toca la rosa para ver la magia';
+
+                // Manejar toque en móvil - usar click para mejor compatibilidad
+                roseContainer.addEventListener('click', (e) => {
+                    e.preventDefault();
                     
                     // Vibración táctil si está disponible
                     if (window.RoseUtils && window.RoseUtils.vibrateDevice) {
@@ -113,6 +114,9 @@
                     if (!isFlowering) {
                         // Activar efecto de florecimiento
                         roseContainer.classList.add('mobile-active');
+                        instruction.style.opacity = '0';
+                        loveMessage.style.opacity = '1';
+                        loveMessage.style.transform = 'translateX(-50%) translateY(-10px)';
                         isFlowering = true;
                         
                         // Crear partículas brillantes
@@ -127,8 +131,16 @@
                     } else {
                         // Desactivar efecto de florecimiento
                         roseContainer.classList.remove('mobile-active');
+                        instruction.style.opacity = '0.6';
+                        loveMessage.style.opacity = '0';
+                        loveMessage.style.transform = 'translateX(-50%) translateY(0)';
                         isFlowering = false;
                     }
+                });
+
+                // También mantener touchstart para casos específicos
+                roseContainer.addEventListener('touchstart', (e) => {
+                    e.preventDefault(); // Prevenir zoom en iOS
                 });
 
                 // Prevenir el comportamiento de hover en móvil

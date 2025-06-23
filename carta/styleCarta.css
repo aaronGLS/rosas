@@ -1,0 +1,483 @@
+/* ------------------------------
+   CSS Reset Section
+   Proporciona una base consistente 
+   en todos los navegadores
+------------------------------ */
+
+/* reset css */
+
+* {
+    min-width: 0;
+    font: inherit;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  img,
+  video,
+  svg {
+    display: block;
+    height: auto;
+    max-width: 100%;
+  }
+  
+  body {
+    margin: 0;
+    min-height: 100dvh;
+  }
+  
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  
+  p {
+    text-wrap: pretty;
+  }
+  
+  /* styles */
+  /* TODO: Cambiar la fuente
+  
+  * {
+    font-family: comic-sans;
+  } */
+  
+/* ------------------------------
+   Body & Main Container 
+   Define disposición general y 
+   fondo representativo 
+------------------------------ */
+
+  body {
+    background-color: #fad7df;
+    background-image: url('../assets/fondoSanValentin.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 2rem; /* Ajustado para dar espacio entre título y sobre */
+  }
+  
+  .main-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), 0 0 10px rgba(254, 51, 52, 0.8);
+    margin: 0;
+    text-align: center;
+    /* Mejora en el renderizado del texto */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    backdrop-filter: blur(2px);
+  }
+    .title-heart {
+    display: inline-block;
+    color: #ffffff;
+    text-shadow: 0 0 8px #ff0000;
+    animation: latido 1.2s ease-in-out infinite;
+  }
+  
+  @keyframes latido {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  
+/* ------------------------------
+   Envelope (cover, container) 
+   y carta (paper, letter)
+   Crean la ilusión de un sobre 
+   interactivo con animaciones
+------------------------------ */
+
+  .container-letter {
+    position: relative;
+    cursor: pointer; /* Añadimos cursor pointer para indicar que es clickeable */
+    z-index: 2;
+  }
+  
+  .cover {
+    position: absolute;
+    border-left: 200px solid transparent;
+    border-right: 200px solid transparent;
+    border-top: 120px solid #ff4d6d;        
+    border-bottom: 120px solid transparent;  
+  
+    /*  */
+    transition: transform .75s;
+    transform-origin: top;
+    border-radius: 15px; /* Nuevo */
+  }
+  
+  .paper {
+    position: absolute;
+    right: 5px;
+    z-index: -1;
+    width: 390px;
+    height: 220px;
+    background: #f9f9f9; /* Cambiado de white a un tono más suave */
+    
+    /* Mejores márgenes y bordes */
+    padding: 1.5rem;
+    border: 2px dashed #555;
+    border-radius: 15px; /* Cambiado de 3px a 15px para redondear la carta */
+    
+    /* Sombras mejoradas */
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.1),
+      inset 0 0 2rem rgba(254, 51, 52, 0.08);
+  
+    & #mainMessage {
+      height: calc(100% - 1rem); /* Ajustado para evitar desbordamiento */
+      padding: 0.5rem 1rem;
+      margin: 0.5rem;
+      border-left: 2px solid rgba(254, 51, 52, 0.3);
+      
+      /* Tipografía mejorada */
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      line-height: 1.6;
+      color: #444;
+  
+      /* Mejora en el renderizado del texto */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+  
+      /* Espaciado entre párrafos */
+      & p {
+        margin-bottom: 0.8rem;
+      }
+  
+      /* Énfasis */
+      & strong, & em {
+        color: #e52e2f;
+        font-weight: 700;
+      }
+    }
+  
+    /* Scroll properties */
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #fe3334 #fad7df;
+  
+    /* Estilos para webkit (Chrome, Safari, etc) */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+  
+    &::-webkit-scrollbar-track {
+      background: #fad7df;
+      border-radius: 4px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #fe3334;
+      border-radius: 4px;
+    }
+  
+    transition: all .75s;
+    transform-origin: center;
+  }
+  
+  .letter {
+    border-left: 200px solid #ffb3c1;
+    border-right: 200px solid #ffb3c1;
+    border-top: 120px solid transparent;    /* Reducido de 150px a 120px */
+    border-bottom: 120px solid #ffb3c1;    /* Reducido de 150px a 120px */
+    border-radius: 15px; /* Nuevo */
+  }
+  
+  .open-cover {
+    transform: rotatex(180deg);
+  }
+  
+  .open-paper {
+    animation: openPaper .5s forwards, moveToFront .5s forwards .5s;
+  }
+  
+/* ------------------------------
+   Keyframes & Animations
+   Controlan la apertura y 
+   cierre del sobre, latido 
+   del corazón, etc.
+------------------------------ */
+
+  @keyframes openPaper {
+    0% {
+      transform: translateY(0);
+      z-index: -1;
+    }
+    100% {
+      transform: translateY(-140px);
+      z-index: -1;
+    }
+  }
+  
+  @keyframes moveToFront {
+    0% {
+      transform: translateY(-140px) scale(1);
+      z-index: -1;
+    }
+    50% {
+      z-index: 10;
+    }
+    100% {
+      transform: translateY(0) scale(1.05);
+      z-index: 10;
+    }
+  }
+  
+  .close-paper {
+    animation: moveBack .5s forwards, closePaper .5s forwards .5s;
+  }
+  
+  @keyframes moveBack {
+    0% {
+      transform: translateY(0) scale(1.05);
+      z-index: 10;
+    }
+    50% {
+      z-index: -1;
+    }
+    100% {
+      transform: translateY(-140px) scale(1);
+      z-index: -1;
+    }
+  }
+    @keyframes closePaper {
+    0% {
+      transform: translateY(-140px);
+      z-index: -1;
+    }
+    100% {
+      transform: translateY(0);
+      z-index: -1;
+    }
+  }
+  
+  .heart {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    font-size: 3rem;
+    color: #ffffff;
+    text-shadow: 0 0 5px #fe3334;
+    z-index: 10;
+    animation: crecer 1s forwards;
+  }
+  
+  @keyframes crecer {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(3);
+      opacity: 0;
+    }
+  }
+
+  .wax-seal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+
+    & img {
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: contain;
+    }
+  }
+
+  .open-cover ~ .wax-seal {
+    opacity: 0;
+  }
+  @media (max-width: 480px) {
+    main {
+      padding: 1rem;
+      min-height: 100dvh;
+      justify-content: center;
+    }
+  
+    body {
+      background-image: url('../assets/fondo.gif');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-attachment: fixed;
+    }
+  
+    .main-title {
+      font-size: 2.5rem;
+    }
+  
+    /* Definimos el contenedor con dimensiones proporcionales:
+       En escritorio la “carta” (paper) es 390×220 y el sobre se construye con bordes de 200 y 120;
+       usando un factor de escala de 0.8 obtenemos:
+         - ancho del sobre: 400px × 0.8 = 320px
+         - altura del sobre: 240px × 0.8 = 192px  */
+    .container-letter {
+      position: relative;
+      width: 320px;
+      height: 192px;
+      z-index: 2;
+    }
+  
+    /* Ajustamos la “cubierta” (cover) proporcionalmente:
+       - Bordes laterales: 200px × 0.8 = 160px
+       - Bordes verticales: 120px × 0.8 = 96px  */    .cover {
+      position: absolute;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 96px solid #ff4d6d;        
+      border-bottom: 96px solid transparent;  
+      transform-origin: top;
+      border-radius: 15px;
+      transition: transform 0.75s;
+    }
+  
+    /* La “carta” (paper) en escritorio mide 390×220; 
+       al aplicar la escala 0.8, sus dimensiones ideales son:
+         390 × 0.8 = 312px de ancho
+         220 × 0.8 = 176px de alto
+       Se centra horizontalmente dentro del contenedor (320px) usando left: 4px ((320-312)/2) */
+    .paper {
+      position: absolute;
+      left: 4px;
+      z-index: -1;
+      width: 312px;
+      height: 176px;
+      background: #f9f9f9;
+      padding: 1.5rem;
+      border: 2px dashed #555;
+      border-radius: 15px;
+      box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.1),
+        inset 0 0 2rem rgba(254, 51, 52, 0.08);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #fe3334 #fad7df;
+      transition: all 0.75s;
+      transform-origin: center;
+    }
+  
+    /* La “carta” del sobre (letter) también se escala:
+       Bordes laterales: 200 × 0.8 = 160px;
+       Bordes verticales: 120 × 0.8 = 96px  */    .letter {
+      border-left: 160px solid #ffb3c1;
+      border-right: 160px solid #ffb3c1;
+      border-top: 96px solid transparent;
+      border-bottom: 96px solid #ffb3c1;
+      border-radius: 15px;
+    }
+  
+    /* Animaciones ajustadas:
+       En escritorio el movimiento de la carta es de -140px en Y; 
+       con la escala 0.8 se usa -140×0.8 = -112px */
+    @keyframes openPaper {
+      0% {
+        transform: translateY(0);
+        z-index: -1;
+      }
+      100% {
+        transform: translateY(-112px);
+        z-index: -1;
+      }
+    }
+  
+    @keyframes moveToFront {
+      0% {
+        transform: translateY(-112px);
+        z-index: -1;
+      }
+      50% {
+        z-index: 10;
+      }
+      100% {
+        /* Se mantiene el efecto “ampliado”: 1.05 en escritorio, aplicado sobre la escala base */
+        transform: translateY(0) scale(1.05);
+        z-index: 10;
+      }
+    }
+  
+    @keyframes moveBack {
+      0% {
+        transform: translateY(0) scale(1.05);
+        z-index: 10;
+      }
+      50% {
+        z-index: -1;
+      }
+      100% {
+        transform: translateY(-112px);
+        z-index: -1;
+      }
+    }
+  
+    @keyframes closePaper {
+      0% {
+        transform: translateY(-112px);
+        z-index: -1;
+      }
+      100% {
+        transform: translateY(0);
+        z-index: -1;
+      }
+    }
+    /* El ícono del corazón se mantiene centrado igual que en la versión de escritorio */
+    .heart {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0;
+      font-size: 3rem;
+      color: #ffffff;
+      text-shadow: 0 0 5px #fe3334;
+      z-index: 10;
+      animation: crecer 1s forwards;
+    }
+  }
+  
+  
+  /* Breakpoint adicional para pantallas muy pequeñas */
+  @media (max-width: 360px) {
+    .container-letter {
+      transform: scale(0.7);
+    }
+  
+    .main-title {
+      font-size: 2rem;
+    }
+  }

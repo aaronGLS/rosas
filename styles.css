@@ -1012,3 +1012,53 @@ body {
 .rose-container.mobile-active ~ .instruction {
     opacity: 0;
 }
+
+/* Mejoras adicionales para dispositivos móviles */
+@media (pointer: coarse) {
+    /* Asegurar que los efectos hover no interfieran en dispositivos táctiles */
+    .rose-container:hover .petal {
+        transform-style: initial;
+        filter: initial;
+    }
+    
+    .rose-container:hover ~ .love-message {
+        opacity: 0;
+        transform: translateX(-50%) translateY(0);
+    }
+    
+    .rose-container:hover ~ .instruction {
+        opacity: 0.6;
+    }
+    
+    /* Mejorar la zona de toque */
+    .rose-container {
+        padding: 20px;
+        margin: -20px;
+    }
+}
+
+/* Transiciones suaves para el estado mobile-active */
+.love-message {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.instruction {
+    transition: opacity 0.6s ease-out;
+}
+
+/* Feedback visual adicional para toque en móvil */
+.rose-container.mobile-active {
+    transform: scale(1.02);
+    transition: transform 0.3s ease-out;
+}
+
+/* Animación de pulsación para feedback táctil */
+@keyframes touch-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.98); }
+    100% { transform: scale(1.02); }
+}
+
+.rose-container.touch-feedback {
+    animation: touch-pulse 0.3s ease-out;
+}
