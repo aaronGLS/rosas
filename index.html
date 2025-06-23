@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Rosa Bonita con Efectos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+</head>
+<body>
+
+    <div class="rose-container">
+        <!-- Tallo de la rosa -->
+        <div class="stem"></div>
+        
+        <!-- Hojas de la rosa -->
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>        <!-- La flor compuesta por pétalos -->
+        <div class="flower">
+            <!-- Capa interior de pétalos -->
+            <div class="petal petal-1"></div>
+            <div class="petal petal-2"></div>
+            <div class="petal petal-3"></div>
+            <!-- Capa media de pétalos -->
+            <div class="petal petal-4"></div>
+            <div class="petal petal-5"></div>
+            <div class="petal petal-6"></div>
+            <div class="petal petal-7"></div>
+            <div class="petal petal-8"></div>
+            <!-- Capa exterior de pétalos -->
+            <div class="petal petal-9"></div>
+            <div class="petal petal-10"></div>
+            <div class="petal petal-11"></div>
+            <div class="petal petal-12"></div>
+            <!-- Capa más externa para mayor realismo -->
+            <div class="petal petal-13"></div>
+            <div class="petal petal-14"></div>
+            <div class="petal petal-15"></div>
+            <div class="petal petal-16"></div>
+            <div class="petal petal-17"></div>
+            <div class="petal petal-18"></div>
+        </div>
+    </div>    <!-- Texto de instrucción que aparece y desaparece -->
+    <div class="instruction">Toca la rosa para ver la magia</div>
+
+    <!-- Mensaje de amor oculto -->
+    <div class="love-message">
+        <div class="love-text">Para mi amor ❤️</div>
+        <div class="birthday-text">Feliz Cumpleaños, mi vida</div>
+    </div>    <script>
+        // Función para detectar si es un dispositivo móvil
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1) || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // Función para crear partículas brillantes
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.style.position = 'absolute';
+            sparkle.style.width = `${Math.random() * 5 + 2}px`;
+            sparkle.style.height = sparkle.style.width;
+            sparkle.style.backgroundColor = 'white';
+            sparkle.style.borderRadius = '50%';
+            sparkle.style.opacity = '1';
+            sparkle.style.boxShadow = '0 0 8px #fff, 0 0 12px #fff, 0 0 16px #ffeb3b';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '15';
+
+            // Posición aleatoria alrededor del contenedor de la rosa
+            const angle = Math.random() * Math.PI * 2;
+            const radius = Math.random() * 150 + 50;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            
+            sparkle.style.left = `calc(50% + ${x}px)`;
+            sparkle.style.top = `calc(50% + ${y}px - 100px)`;
+
+            document.body.appendChild(sparkle);
+
+            // Animación para desvanecer y eliminar la partícula
+            sparkle.animate([
+                { opacity: 1, transform: 'scale(1)' },
+                { opacity: 0, transform: `scale(0.5) translate(${Math.random() * 40 - 20}px, ${Math.random() * 40 - 20}px)` }
+            ], {
+                duration: 1000 + Math.random() * 1000,
+                easing: 'ease-out'
+            }).onfinish = () => {
+                sparkle.remove();
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const roseContainer = document.querySelector('.rose-container');
+            const instruction = document.querySelector('.instruction');
+            const isMobile = isMobileDevice();
+            
+            // Variables para controlar el estado en móvil
+            let isFlowering = false;
+
+            if (isMobile) {
+                // Comportamiento para dispositivos móviles
+                console.log('Dispositivo móvil detectado');
+                
+                // Actualizar texto de instrucción para móvil
+                instruction.textContent = 'Toca la rosa para ver la magia';                // Manejar toque en móvil
+                roseContainer.addEventListener('touchstart', (e) => {
+                    e.preventDefault(); // Prevenir zoom en iOS
+                    
+                    // Vibración táctil si está disponible
+                    if (window.RoseUtils && window.RoseUtils.vibrateDevice) {
+                        window.RoseUtils.vibrateDevice();
+                    }
+                    
+                    if (!isFlowering) {
+                        // Activar efecto de florecimiento
+                        roseContainer.classList.add('mobile-active');
+                        isFlowering = true;
+                        
+                        // Crear partículas brillantes
+                        for (let i = 0; i < 15; i++) {
+                            setTimeout(() => createSparkle(), i * 100);
+                        }
+                        
+                        // Feedback visual
+                        if (window.RoseUtils && window.RoseUtils.addTouchFeedback) {
+                            window.RoseUtils.addTouchFeedback(roseContainer);
+                        }
+                    } else {
+                        // Desactivar efecto de florecimiento
+                        roseContainer.classList.remove('mobile-active');
+                        isFlowering = false;
+                    }
+                });
+
+                // Prevenir el comportamiento de hover en móvil
+                roseContainer.addEventListener('touchend', (e) => {
+                    e.preventDefault();
+                });
+
+            } else {
+                // Comportamiento para desktop (ratón)
+                console.log('Desktop detectado');
+                
+                // Actualizar texto de instrucción para desktop
+                instruction.textContent = 'Pasa el ratón sobre la rosa';
+
+                // Efecto al pasar el ratón (solo desktop)
+                roseContainer.addEventListener('mouseenter', () => {
+                    // Crear partículas brillantes
+                    for (let i = 0; i < 20; i++) {
+                        setTimeout(() => createSparkle(), i * 50);
+                    }
+                });
+
+                // Opcional: agregar más partículas mientras el ratón está sobre la rosa
+                roseContainer.addEventListener('mouseover', (e) => {
+                    if (Math.random() < 0.1) { // 10% de probabilidad cada vez
+                        createSparkle();
+                    }
+                });
+            }
+
+            // Prevenir el menú contextual en móvil al mantener presionado
+            roseContainer.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+            });
+
+            // Optimización para dispositivos con pantalla táctil y ratón (híbridos)
+            if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
+                // Dispositivo con puntero grueso (touch)
+                roseContainer.style.cursor = 'pointer';
+            }
+        });
+    </script>
+</body>
+</html>
