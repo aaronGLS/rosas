@@ -134,10 +134,14 @@
                 // Actualizar texto de instrucción para móvil
                 instruction.textContent = 'Toca la rosa para ver la magia';                // Manejar toque en móvil - usar click para mejor compatibilidad
                 roseContainer.addEventListener('click', (e) => {
-                    // Si la flor ya está abierta, no hacemos nada más aquí.
-                    if (isFlowering) return;
+                    // Si la flor ya está abierta, no hacemos nada aquí. Dejamos que el evento
+                    // "burbujee" hasta el 'document' para que él gestione el cierre.
+                    if (isFlowering) {
+                        return;
+                    }
 
-                    // Prevenir que el evento se propague al body y cierre la flor inmediatamente.
+                    // Si la flor está CERRADA, detenemos la propagación para que el 'document'
+                    // no la cierre inmediatamente después de abrirla.
                     e.stopPropagation(); 
                     
                     // Vibración táctil si está disponible
