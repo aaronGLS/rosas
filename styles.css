@@ -18,6 +18,7 @@ body {
     z-index: 1000;
     opacity: 0;
     animation: button-fade-in 2s ease-out 1.5s forwards;
+    transform: translateZ(0);
 }
 
 .carta-btn {
