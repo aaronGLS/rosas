@@ -112,11 +112,12 @@ body {
     justify-content: center;
     align-items: center;
     /* Animación de balanceo suave */
-    animation: gentle-sway 6s ease-in-out infinite, rose-entrance 3s ease-out;
+    animation: rose-entrance 3s ease-out;
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
     transform-origin: center center;
     scale: 1;
     cursor: pointer;
+    transition: transform 0.2s ease-out;
     user-select: none;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
@@ -161,11 +162,12 @@ body {
         #1a5a1a 100%);
     bottom: 0;
     border-radius: 5px;
+    transform-origin: bottom center;
     box-shadow: 
         0 0 15px rgba(0, 0, 0, 0.6),
         inset 2px 0 4px rgba(255,255,255,0.2),
         inset -2px 0 4px rgba(0,0,0,0.3);
-    animation: stem-growth 2s ease-out;
+    animation: stem-growth 2s ease-out, stem-sway 7s ease-in-out infinite;
 }
 
 @keyframes stem-growth {
@@ -230,7 +232,7 @@ body {
         inset 0 -3px 8px rgba(0,0,0,0.4),
         inset 2px 2px 4px rgba(255,255,255,0.3),
         0 4px 8px rgba(0,0,0,0.3);
-    bottom: 140px;
+    bottom: 180px;
 }
 
 /* Conexión de las hojas al tallo */
@@ -260,7 +262,7 @@ body {
 .leaf.leaf-2 {
     width: 88px;
     height: 52px;
-    bottom: 135px;
+    bottom: 175px;
 }
 
 .leaf.leaf-2::before {
@@ -300,7 +302,7 @@ body {
 .leaf.leaf-2 {
     width: 88px;
     height: 52px;
-    bottom: 135px;
+    bottom: 175px;
     right: 50%;
     transform: translateX(95%) rotate(33deg);
     animation: leaf-sway-2 3.8s ease-in-out infinite 0.3s, leaf-appear 1.5s ease-out 1.8s both;
@@ -348,6 +350,8 @@ body {
     width: 240px;
     height: 240px;
     bottom: 110px;
+    transform-origin: bottom center;
+    animation: flower-sway 6s ease-in-out infinite;
 }
 
 /* Centro de la rosa con más detalle */
@@ -783,22 +787,38 @@ body {
 }
 
 .love-text {
+    font-family: 'Dancing Script', cursive;
     color: #fecaca;
-    font-size: 28px;
-    font-weight: 600;
+    font-size: 42px; /* Aumentado para la nueva fuente */
+    font-weight: 700; /* Usar el peso cargado de la fuente */
     text-shadow: 
         0 0 10px rgba(254, 202, 202, 0.8),
         0 2px 15px rgba(0,0,0,0.9);
-    margin-bottom: 10px;
+    margin-bottom: 12px; /* Ajuste de espacio */
     animation: love-glow 2s ease-in-out infinite alternate;
 }
 
 .birthday-text {
     color: #e5e7eb;
-    font-size: 20px;
-    font-weight: 300;
+    font-size: 22px;
+    font-weight: 400; /* Un peso más ligero para contraste */
     text-shadow: 0 2px 10px rgba(0,0,0,0.8);
     letter-spacing: 1.5px;
+    text-align: center;
+}
+
+.birthday-text span {
+    display: inline-block; /* Necesario para transformaciones y animaciones */
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    animation: letter-appear 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes letter-appear {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes love-glow {
@@ -898,6 +918,45 @@ body {
 @keyframes sparkle {
     0%, 100% { opacity: 0; transform: rotate(0deg); }
     50% { opacity: 0.3; transform: rotate(360deg); }
+}
+
+/* --- Fondo de Partículas Ambientales --- */
+#sparkle-background-1, #sparkle-background-2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Impide que interfiera con el ratón */
+    z-index: -2; /* Detrás de todo */
+}
+
+#sparkle-background-1 {
+    background-image: 
+        radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 50% 70%, rgba(255,255,255,0.7), transparent);
+    background-size: 300px 300px, 400px 400px, 500px 500px;
+    animation: move-sparkles-1 120s linear infinite;
+}
+
+#sparkle-background-2 {
+    background-image: 
+        radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(2px 2px at 70% 60%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 40% 10%, rgba(255,255,255,0.6), transparent);
+    background-size: 350px 350px, 450px 450px, 550px 550px;
+    animation: move-sparkles-2 180s linear infinite;
+}
+
+@keyframes move-sparkles-1 {
+    from { transform: translate(0, 0); }
+    to { transform: translate(-300px, -300px); }
+}
+
+@keyframes move-sparkles-2 {
+    from { transform: translate(0, 0); }
+    to { transform: translate(-350px, -350px); }
 }
 
 /* ===== RESPONSIVE DESIGN PARA MÓVILES ===== */
@@ -1154,4 +1213,14 @@ body {
     /* Usar transform en lugar de animation para evitar conflictos */
     transform: scale(0.98);
     transition: transform 0.15s ease-out;
+}
+
+@keyframes stem-sway {
+    0%, 100% { transform: rotate(1.5deg); }
+    50% { transform: rotate(-1.5deg); }
+}
+
+@keyframes flower-sway {
+    0%, 100% { transform: rotate(2.5deg) translateX(-2%); }
+    50% { transform: rotate(-2.5deg) translateX(2%); }
 }

@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Rosa Bonita con Efectos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
 </head>
 <body>
+    <div id="sparkle-background-1"></div>
+    <div id="sparkle-background-2"></div>
+    
     <!-- Botón para ir a la carta -->
     <div class="nav-button">
         <a href="carta/carta.html" class="carta-btn">
@@ -17,11 +21,13 @@
 
     <div class="rose-container">
         <!-- Tallo de la rosa -->
-        <div class="stem"></div>
+        <div class="stem">
+            <!-- Hojas de la rosa -->
+            <div class="leaf leaf-1"></div>
+            <div class="leaf leaf-2"></div>
+        </div>
         
-        <!-- Hojas de la rosa -->
-        <div class="leaf leaf-1"></div>
-        <div class="leaf leaf-2"></div>        <!-- La flor compuesta por pétalos -->
+        <!-- La flor compuesta por pétalos -->
         <div class="flower">
             <!-- Capa interior de pétalos -->
             <div class="petal petal-1"></div>
@@ -52,7 +58,9 @@
     <!-- Mensaje de amor oculto -->
     <div class="love-message">
         <div class="love-text">Para mi amor ❤️</div>
-        <div class="birthday-text">Feliz Cumpleaños, mi vida</div>
+        <div class="birthday-text">
+            <span>F</span><span>e</span><span>l</span><span>i</span><span>z</span><span>&nbsp;</span><span>C</span><span>u</span><span>m</span><span>p</span><span>l</span><span>e</span><span>a</span><span>ñ</span><span>o</span><span>s</span><span>,</span><span>&nbsp;</span><span>m</span><span>i</span><span>&nbsp;</span><span>v</span><span>i</span><span>d</span><span>a</span>
+        </div>
     </div>    <script>
         // Función para detectar si es un dispositivo móvil
         function isMobileDevice() {
@@ -93,7 +101,24 @@
             }).onfinish = () => {
                 sparkle.remove();
             };
-        }        document.addEventListener('DOMContentLoaded', () => {
+        }
+
+        function triggerLetterAnimation() {
+            const birthdayTextSpans = document.querySelectorAll('.birthday-text span');
+            birthdayTextSpans.forEach((span, index) => {
+                span.style.animationDelay = `${index * 0.05}s`;
+                span.style.animationName = 'letter-appear'; // Asegura que la animación se aplique
+            });
+        }
+
+        function resetLetterAnimation() {
+            const birthdayTextSpans = document.querySelectorAll('.birthday-text span');
+            birthdayTextSpans.forEach(span => {
+                span.style.animationName = 'none'; // Quita la animación para poder reiniciarla
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
             const roseContainer = document.querySelector('.rose-container');
             const instruction = document.querySelector('.instruction');
             const loveMessage = document.querySelector('.love-message');
@@ -123,6 +148,7 @@
                         instruction.style.opacity = '0';
                         loveMessage.style.opacity = '1';
                         loveMessage.style.transform = 'translateX(-50%) translateY(-10px)';
+                        triggerLetterAnimation();
                         isFlowering = true;
                         
                         // Crear partículas brillantes
@@ -140,6 +166,7 @@
                         instruction.style.opacity = '0.6';
                         loveMessage.style.opacity = '0';
                         loveMessage.style.transform = 'translateX(-50%) translateY(0)';
+                        resetLetterAnimation();
                         isFlowering = false;
                     }
                 });                // Prevenir solo el zoom en touchstart pero permitir la propagación del evento
@@ -155,12 +182,49 @@
                 // Actualizar texto de instrucción para desktop
                 instruction.textContent = 'Pasa el ratón sobre la rosa';
 
+                const loveMessage = document.querySelector('.love-message'); // Asegúrate de que esta variable está disponible aquí
+
+                document.body.addEventListener('mousemove', (e) => {
+                    if (isMobile) return; // Doble chequeo para no ejecutar en móvil
+
+                    const { clientX, clientY } = e;
+                    const { innerWidth, innerHeight } = window;
+
+                    // Calcula el movimiento en un rango de -1 a 1
+                    const moveX = (clientX / innerWidth - 0.5) * 2;
+                    const moveY = (clientY / innerHeight - 0.5) * 2;
+
+                    // Aplica la transformación parallax. Los valores son pequeños para mantener la sutileza.
+                    // Es MUY IMPORTANTE no eliminar las animaciones que ya se controlan por CSS.
+                    // Este transform se combinará con las animaciones de balanceo.
+                    const roseTransform = `translateX(${moveX * 15}px) translateY(${moveY * 8}px)`;
+
+                    // El mensaje se mueve un poco más para aumentar la sensación de profundidad.
+                    // El 'translateX(-50%)' es para mantenerlo centrado.
+                    const messageTransform = `translateX(calc(-50% + ${moveX * 30}px)) translateY(${moveY * 15}px)`;
+
+                    roseContainer.style.setProperty('transform', roseTransform);
+
+                    // Solo modifica el transform del mensaje si la rosa está siendo "hovered"
+                    if (loveMessage.style.opacity === '1') {
+                        loveMessage.style.setProperty('transform', messageTransform);
+                    }
+                });
+
+                // Añade un listener para resetear la posición cuando el hover sobre la rosa termina
+                roseContainer.addEventListener('mouseleave', () => {
+                     // Al salir, el CSS se encargará de volver a mostrar el mensaje con su transform original
+                     loveMessage.style.transform = 'translateX(-50%) translateY(0)';
+                     resetLetterAnimation();
+                });
+
                 // Efecto al pasar el ratón (solo desktop)
                 roseContainer.addEventListener('mouseenter', () => {
                     // Crear partículas brillantes
                     for (let i = 0; i < 20; i++) {
                         setTimeout(() => createSparkle(), i * 50);
                     }
+                    triggerLetterAnimation();
                 });
 
                 // Opcional: agregar más partículas mientras el ratón está sobre la rosa
