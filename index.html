@@ -134,42 +134,53 @@
                 // Actualizar texto de instrucción para móvil
                 instruction.textContent = 'Toca la rosa para ver la magia';                // Manejar toque en móvil - usar click para mejor compatibilidad
                 roseContainer.addEventListener('click', (e) => {
-                    // No prevenir el comportamiento por defecto del click
-                    // para mantener la compatibilidad con eventos táctiles
+                    // Si la flor ya está abierta, no hacemos nada más aquí.
+                    if (isFlowering) return;
+
+                    // Prevenir que el evento se propague al body y cierre la flor inmediatamente.
+                    e.stopPropagation(); 
                     
                     // Vibración táctil si está disponible
                     if (window.RoseUtils && window.RoseUtils.vibrateDevice) {
                         window.RoseUtils.vibrateDevice();
                     }
                     
-                    if (!isFlowering) {
-                        // Activar efecto de florecimiento
-                        roseContainer.classList.add('mobile-active');
-                        instruction.style.opacity = '0';
-                        loveMessage.style.opacity = '1';
-                        loveMessage.style.transform = 'translateX(-50%) translateY(-10px)';
-                        triggerLetterAnimation();
-                        isFlowering = true;
-                        
-                        // Crear partículas brillantes
-                        for (let i = 0; i < 15; i++) {
-                            setTimeout(() => createSparkle(), i * 100);
-                        }
-                        
-                        // Feedback visual
-                        if (window.RoseUtils && window.RoseUtils.addTouchFeedback) {
-                            window.RoseUtils.addTouchFeedback(roseContainer);
-                        }
-                    } else {
-                        // Desactivar efecto de florecimiento
+                    // Activar efecto de florecimiento
+                    roseContainer.classList.add('mobile-active');
+                    instruction.style.opacity = '0';
+                    loveMessage.style.opacity = '1';
+                    loveMessage.style.transform = 'translateX(-50%) translateY(-10px)';
+                    triggerLetterAnimation();
+                    isFlowering = true;
+                    
+                    // Crear partículas brillantes
+                    for (let i = 0; i < 15; i++) {
+                        setTimeout(() => createSparkle(), i * 100);
+                    }
+                    
+                    // Feedback visual
+                    if (window.RoseUtils && window.RoseUtils.addTouchFeedback) {
+                        window.RoseUtils.addTouchFeedback(roseContainer);
+                    }
+                });
+
+                // Evento para cerrar la flor cuando se toca fuera de ella
+                document.addEventListener('click', () => {
+                    // Solo actuar si la flor está abierta
+                    if (isFlowering) {
+                        // Ejecuta la lógica para CERRAR la flor
                         roseContainer.classList.remove('mobile-active');
                         instruction.style.opacity = '0.6';
                         loveMessage.style.opacity = '0';
                         loveMessage.style.transform = 'translateX(-50%) translateY(0)';
-                        resetLetterAnimation();
+
+                        // Resetea el estado y la animación del texto
                         isFlowering = false;
+                        resetLetterAnimation(); // Llama a la función que resetea la animación de letras
                     }
-                });                // Prevenir solo el zoom en touchstart pero permitir la propagación del evento
+                });
+
+                // Prevenir solo el zoom en touchstart pero permitir la propagación del evento
                 roseContainer.addEventListener('touchstart', (e) => {
                     // Prevenir solo comportamientos específicos como zoom en iOS
                     // pero permitir que el evento siga su curso natural para generar el click
