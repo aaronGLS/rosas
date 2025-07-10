@@ -154,8 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Actualizar texto de instrucción para desktop
         instruction.textContent = 'Pasa el ratón sobre la rosa';
 
-        const loveMessage = document.querySelector('.love-message'); // Asegúrate de que esta variable está disponible aquí
-
         document.body.addEventListener('mousemove', (e) => {
             if (isMobile) return; // Doble chequeo para no ejecutar en móvil
 
