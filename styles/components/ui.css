@@ -1,0 +1,206 @@
+/* Botón de navegación a la carta */
+.nav-button {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: var(--z-nav);
+    opacity: 0;
+    animation: button-fade-in 2s ease-out 1.5s forwards;
+    transform: translateZ(0);
+}
+
+.carta-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, var(--color-ui-bg-light), var(--color-ui-bg-medium));
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-ui-border);
+    border-radius: var(--radius-large);
+    color: var(--color-text-love);
+    text-decoration: none;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-btn);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.5px;
+    transition: all var(--duration-fast) ease;
+    box-shadow: var(--shadow-btn);
+    position: relative;
+    overflow: hidden;
+}
+
+.carta-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.carta-btn:hover {
+    background: linear-gradient(135deg, var(--color-ui-bg-hover-light), var(--color-ui-bg-hover-medium));
+    border-color: var(--color-ui-border-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-btn-hover);
+    color: #fff;
+}
+
+.carta-btn:hover::before {
+    left: 100%;
+}
+
+.carta-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-btn-active);
+}
+
+.btn-icon {
+    font-size: 16px;
+    filter: drop-shadow(var(--shadow-btn-icon));
+}
+
+.btn-text {
+    text-shadow: var(--shadow-btn-text);
+}
+
+/* Texto de instrucción */
+.instruction {
+    position: absolute;
+    bottom: 30px;
+    color: var(--color-text-primary);
+    font-size: var(--font-size-instruction);
+    text-align: center;
+    width: 100%;
+    animation: fade-in-out 4s ease-in-out infinite;
+    text-shadow: var(--shadow-text-primary);
+    font-weight: var(--font-weight-light);
+    letter-spacing: 1px;
+    transition: opacity var(--duration-medium) ease-out;
+}
+
+/* Mensaje de amor oculto */
+.love-message {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--duration-slow) ease-out;
+    z-index: var(--z-message);
+}
+
+.love-text {
+    font-family: var(--font-display);
+    color: var(--color-text-rose);
+    font-size: var(--font-size-love-text);
+    font-weight: var(--font-weight-bold);
+    text-shadow: var(--shadow-text-love);
+    margin-bottom: 12px;
+    animation: love-glow 2s ease-in-out infinite alternate;
+}
+
+.birthday-text {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-birthday-text);
+    font-weight: var(--font-weight-normal);
+    text-shadow: var(--shadow-text-primary);
+    letter-spacing: 1.5px;
+    text-align: center;
+}
+
+.birthday-text span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    animation: letter-appear 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Mostrar mensaje al hacer hover */
+.rose-container:hover ~ .love-message {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+/* Ocultar instrucción al hacer hover */
+.rose-container:hover ~ .instruction {
+    opacity: 0;
+}
+
+/* Mostrar mensaje al tocar en móvil */
+.rose-container.mobile-active ~ .love-message {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+/* Ocultar instrucción al tocar en móvil */
+.rose-container.mobile-active ~ .instruction {
+    opacity: 0;
+}
+
+/* --- Fondo de Partículas Ambientales --- */
+#sparkle-background-1, #sparkle-background-2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: var(--z-background);
+}
+
+#sparkle-background-1 {
+    background-image: 
+        radial-gradient(1px 1px at 20% 30%, var(--color-sparkle-primary), transparent),
+        radial-gradient(1px 1px at 80% 20%, var(--color-sparkle-secondary), transparent),
+        radial-gradient(2px 2px at 50% 70%, var(--color-sparkle-tertiary), transparent);
+    background-size: 300px 300px, 400px 400px, 500px 500px;
+    animation: move-sparkles-1 var(--duration-sparkle-bg-1) linear infinite;
+}
+
+#sparkle-background-2 {
+    background-image: 
+        radial-gradient(1px 1px at 10% 80%, var(--color-sparkle-quaternary), transparent),
+        radial-gradient(2px 2px at 70% 60%, var(--color-sparkle-primary), transparent),
+        radial-gradient(1px 1px at 40% 10%, var(--color-sparkle-secondary), transparent);
+    background-size: 350px 350px, 450px 450px, 550px 550px;
+    animation: move-sparkles-2 var(--duration-sparkle-bg-2) linear infinite;
+}
+
+/* Mejoras adicionales para dispositivos móviles */
+@media (pointer: coarse) {
+    /* Asegurar que los efectos hover no interfieran en dispositivos táctiles */
+    .rose-container:hover .petal {
+        transform-style: initial;
+        filter: initial;
+    }
+    
+    .rose-container:hover ~ .love-message {
+        opacity: 0;
+        transform: translateX(-50%) translateY(0);
+    }
+    
+    .rose-container:hover ~ .instruction {
+        opacity: 0.6;
+    }
+    
+    /* Mejorar la zona de toque */
+    .rose-container {
+        padding: 20px;
+        margin: -20px;
+    }
+}
+
+/* Transiciones suaves para el estado mobile-active */
+.love-message {
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.instruction {
+    transition: opacity var(--duration-medium) ease-out;
+}

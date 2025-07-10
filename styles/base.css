@@ -1,0 +1,161 @@
+:root {
+    /* Colores Principales */
+    --color-bg-dark-primary: #2a2a2a;
+    --color-bg-dark-secondary: #1a1a1a;
+    --color-bg-dark-tertiary: #0f0f0f;
+    
+    /* Colores de Rosa */
+    --color-rose-petal-lightest: #fecaca;
+    --color-rose-petal-light: #fca5a5;
+    --color-rose-petal-medium: #f87171;
+    --color-rose-petal-strong: #ef4444;
+    --color-rose-petal-dark: #dc2626;
+    --color-rose-petal-darker: #b91c1c;
+    --color-rose-petal-darkest: #991b1b;
+    
+    /* Colores del Centro de la Rosa */
+    --color-rose-center-darkest: #7f1d1d;
+    --color-rose-center-dark: #8b1538;
+    --color-rose-center-medium: #a91b47;
+    --color-rose-center-light: #c7254e;
+    --color-rose-center-lighter: #dc2f55;
+    --color-rose-center-lightest: #e53e3e;
+    
+    /* Colores del Pistilo */
+    --color-pistil-lightest: #fef3c7;
+    --color-pistil-light: #fef08a;
+    --color-pistil-medium: #eab308;
+    --color-pistil-dark: #ca8a04;
+    
+    /* Colores del Tallo */
+    --color-stem-darkest: #1a5a1a;
+    --color-stem-dark: #2a7d2a;
+    --color-stem-medium: #3cb371;
+    --color-stem-spine-dark: #1a4a1a;
+    --color-stem-spine-medium: #2a6a2a;
+    
+    /* Colores de Hojas */
+    --color-leaf-lightest: #4ade80;
+    --color-leaf-light: #22c55e;
+    --color-leaf-medium: #16a34a;
+    --color-leaf-dark: #15803d;
+    --color-leaf-darkest: #166534;
+    
+    /* Colores de Texto */
+    --color-text-primary: #e5e7eb;
+    --color-text-rose: #fecaca;
+    --color-text-love: #ffb6c1;
+    
+    /* Colores de UI */
+    --color-ui-bg-light: rgba(255, 182, 193, 0.15);
+    --color-ui-bg-medium: rgba(255, 105, 180, 0.15);
+    --color-ui-bg-hover-light: rgba(255, 182, 193, 0.25);
+    --color-ui-bg-hover-medium: rgba(255, 105, 180, 0.25);
+    --color-ui-border: rgba(255, 182, 193, 0.3);
+    --color-ui-border-hover: rgba(255, 182, 193, 0.5);
+    
+    /* Colores de Efectos */
+    --color-glow-primary: rgba(220, 38, 38, 0.2);
+    --color-glow-secondary: rgba(220, 38, 38, 0.12);
+    --color-glow-tertiary: rgba(220, 38, 38, 0.06);
+    --color-sparkle-primary: rgba(255,255,255,0.8);
+    --color-sparkle-secondary: rgba(255,255,255,0.6);
+    --color-sparkle-tertiary: rgba(255,255,255,0.7);
+    --color-sparkle-quaternary: rgba(255,255,255,0.5);
+    --color-dewdrop: rgba(255,255,255,0.9);
+    --color-dewdrop-light: rgba(173,216,230,0.6);
+    
+    /* Tipografía */
+    --font-primary: 'Poppins', sans-serif;
+    --font-display: 'Dancing Script', cursive;
+    
+    /* Tamaños de Fuente */
+    --font-size-instruction: 18px;
+    --font-size-love-text: 42px;
+    --font-size-birthday-text: 22px;
+    --font-size-btn: 14px;
+    
+    /* Pesos de Fuente */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    
+    /* Duraciones de Animación */
+    --duration-ultra-fast: 0.15s;
+    --duration-fast: 0.3s;
+    --duration-medium: 0.6s;
+    --duration-slow: 1s;
+    --duration-very-slow: 1.5s;
+    --duration-ultra-slow: 3s;
+    --duration-entrance: 3s;
+    --duration-heartbeat: 3s;
+    --duration-sway-short: 3.8s;
+    --duration-sway-medium: 4.2s;
+    --duration-sway-long: 6s;
+    --duration-sway-stem: 7s;
+    --duration-dewdrop: 4s;
+    --duration-dewdrop-leaf: 5s;
+    --duration-sparkle: 15s;
+    --duration-sparkle-bg-1: 120s;
+    --duration-sparkle-bg-2: 180s;
+    
+    /* Tamaños y Espaciado */
+    --size-rose-container-width: 350px;
+    --size-rose-container-height: 450px;
+    --size-stem-width: 10px;
+    --size-stem-height: 320px;
+    --size-flower-size: 240px;
+    --size-center-primary: 32px;
+    --size-center-secondary: 10px;
+    --size-dewdrop: 4px;
+    --size-dewdrop-small: 3px;
+    
+    /* Box Shadows */
+    --shadow-primary: 0 20px 40px rgba(0,0,0,0.6);
+    --shadow-stem: 0 0 15px rgba(0, 0, 0, 0.6), inset 2px 0 4px rgba(255,255,255,0.2), inset -2px 0 4px rgba(0,0,0,0.3);
+    --shadow-petal-primary: inset 2px 2px 8px rgba(255,255,255,0.3), inset -2px -2px 8px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3);
+    --shadow-center: inset 0 -4px 8px rgba(0,0,0,0.6), inset 2px 2px 4px rgba(255,255,255,0.2), 0 3px 12px rgba(0,0,0,0.5);
+    --shadow-pistil: 0 0 6px rgba(234, 179, 8, 0.8), inset 0 1px 3px rgba(255,255,255,0.9), 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-dewdrop: 0 0 4px rgba(255,255,255,0.8), inset 0 1px 1px rgba(255,255,255,0.9);
+    --shadow-text-primary: 0 2px 8px rgba(0,0,0,0.8);
+    --shadow-text-love: 0 0 10px rgba(254, 202, 202, 0.8), 0 2px 15px rgba(0,0,0,0.9);
+    --shadow-btn: 0 4px 15px rgba(255, 105, 180, 0.1);
+    --shadow-btn-hover: 0 8px 25px rgba(255, 105, 180, 0.2);
+    --shadow-btn-active: 0 4px 15px rgba(255, 105, 180, 0.15);
+    --shadow-btn-icon: 0 2px 4px rgba(0,0,0,0.3);
+    --shadow-btn-text: 0 1px 3px rgba(0,0,0,0.3);
+    
+    /* Border Radius */
+    --radius-small: 2px;
+    --radius-medium: 5px;
+    --radius-large: 25px;
+    --radius-round: 50%;
+    
+    /* Z-Index */
+    --z-background: -2;
+    --z-behind: -1;
+    --z-base: 0;
+    --z-petal-6: 6;
+    --z-petal-5: 5;
+    --z-petal-4: 4;
+    --z-petal-3: 3;
+    --z-petal-2: 2;
+    --z-petal-1: 1;
+    --z-center: 10;
+    --z-pistil: 11;
+    --z-message: 12;
+    --z-nav: 1000;
+}
+
+/* Estilos generales para centrar la rosa y darle un fondo oscuro */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, var(--color-bg-dark-primary) 0%, var(--color-bg-dark-secondary) 70%, var(--color-bg-dark-tertiary) 100%);
+    margin: 0;
+    overflow: hidden;
+    font-family: var(--font-primary);
+}

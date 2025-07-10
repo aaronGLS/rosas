@@ -1,0 +1,112 @@
+/* ===== RESPONSIVE DESIGN PARA MÓVILES ===== */
+
+/* Tablets en modo retrato y móviles grandes */
+@media (max-width: 768px) {
+    .rose-container {
+        width: min(300px, 85vw);
+        height: min(380px, 85vh);
+        scale: 0.9;
+    }
+    
+    .instruction {
+        font-size: 16px;
+        bottom: 20px;
+        padding: 0 20px;
+    }
+    
+    .love-message {
+        top: 12%;
+    }
+    
+    .love-text {
+        font-size: 24px;
+    }
+    
+    .birthday-text {
+        font-size: 18px;
+    }
+}
+
+/* Móviles en modo retrato */
+@media (max-width: 480px) {
+    body {
+        overflow-x: hidden;
+        padding: 10px 0;
+    }
+    
+    .rose-container {
+        width: min(280px, 90vw);
+        height: min(360px, 80vh);
+        scale: 0.8;
+    }
+    
+    .instruction {
+        font-size: 14px;
+        bottom: 15px;
+        padding: 0 15px;
+        line-height: 1.4;
+    }
+    
+    .love-message {
+        top: 10%;
+        padding: 0 10px;
+    }
+    
+    .love-text {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+    
+    .birthday-text {
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+}
+
+/* Móviles pequeños */
+@media (max-width: 360px) {
+    .rose-container {
+        width: min(250px, 95vw);
+        height: min(320px, 75vh);
+        scale: 0.7;
+    }
+    
+    .instruction {
+        font-size: 12px;
+        bottom: 10px;
+    }
+    
+    .love-text {
+        font-size: 18px;
+    }
+    
+    .birthday-text {
+        font-size: 14px;
+    }
+}
+
+/* Móviles en modo paisaje */
+@media (max-height: 600px) and (orientation: landscape) {
+    .rose-container {
+        width: min(250px, 40vw);
+        height: min(320px, 80vh);
+        scale: 0.65;
+    }
+    
+    .instruction {
+        font-size: 12px;
+        bottom: 5px;
+    }
+    
+    .love-message {
+        top: 5%;
+    }
+    
+    .love-text {
+        font-size: 16px;
+    }
+    
+    .birthday-text {
+        font-size: 14px;
+    }
+}

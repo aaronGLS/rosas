@@ -1,0 +1,140 @@
+/* El tallo de la rosa con animación de crecimiento */
+.stem {
+    position: absolute;
+    width: var(--size-stem-width);
+    height: var(--size-stem-height);
+    background: linear-gradient(to right, 
+        var(--color-stem-darkest) 0%, 
+        var(--color-stem-dark) 20%, 
+        var(--color-stem-medium) 50%, 
+        var(--color-stem-dark) 80%, 
+        var(--color-stem-darkest) 100%);
+    bottom: 0;
+    border-radius: var(--radius-medium);
+    transform-origin: bottom center;
+    box-shadow: var(--shadow-stem);
+    animation: stem-growth 2s ease-out, stem-sway var(--duration-sway-stem) ease-in-out infinite;
+}
+
+/* Espinas en el tallo */
+.stem::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 6px;
+    background: linear-gradient(45deg, var(--color-stem-spine-dark), var(--color-stem-spine-medium));
+    left: -2px;
+    top: 100px;
+    border-radius: var(--radius-small) 0 var(--radius-small) 0;
+    box-shadow: 
+        0 50px 0 0 var(--color-stem-spine-dark),
+        0 120px 0 0 var(--color-stem-spine-dark),
+        0 180px 0 0 var(--color-stem-spine-dark);
+}
+
+.stem::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 6px;
+    background: linear-gradient(45deg, var(--color-stem-spine-dark), var(--color-stem-spine-medium));
+    right: -2px;
+    top: 75px;
+    border-radius: 0 var(--radius-small) 0 var(--radius-small);
+    box-shadow: 
+        0 60px 0 0 var(--color-stem-spine-dark),
+        0 140px 0 0 var(--color-stem-spine-dark),
+        0 200px 0 0 var(--color-stem-spine-dark);
+}
+
+/* Estilo base para las hojas */
+.leaf {
+    position: absolute;
+    background: linear-gradient(135deg, 
+        var(--color-leaf-lightest) 0%, 
+        var(--color-leaf-light) 25%, 
+        var(--color-leaf-medium) 50%, 
+        var(--color-leaf-dark) 75%, 
+        var(--color-leaf-darkest) 100%);
+    width: 85px;
+    height: 50px;
+    border-radius: var(--radius-large) 0 var(--radius-large) 0;
+    box-shadow: 
+        inset 0 -3px 8px rgba(0,0,0,0.4),
+        inset 2px 2px 4px rgba(255,255,255,0.3),
+        0 4px 8px rgba(0,0,0,0.3);
+    bottom: 180px;
+}
+
+/* Conexión de las hojas al tallo */
+.leaf::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: 25%;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, var(--color-leaf-medium), var(--color-leaf-dark));
+    border-radius: var(--radius-round);
+    box-shadow: inset 0 -1px 2px rgba(0,0,0,0.3);
+}
+
+/* Hoja izquierda ligeramente más pequeña para asimetría natural */
+.leaf.leaf-1 {
+    width: 82px;
+    height: 48px;
+}
+
+.leaf.leaf-1::before {
+    right: 30%;
+}
+
+/* Hoja derecha ligeramente más grande */
+.leaf.leaf-2 {
+    width: 88px;
+    height: 52px;
+    bottom: 175px;
+}
+
+.leaf.leaf-2::before {
+    right: 20%;
+}
+
+/* Venas de las hojas */
+.leaf::after {
+    content: '';
+    position: absolute;
+    top: 25%;
+    left: 60%;
+    width: var(--size-dewdrop-small);
+    height: var(--size-dewdrop-small);
+    background: radial-gradient(circle, 
+        var(--color-dewdrop) 0%, 
+        rgba(255,255,255,0.7) 40%, 
+        var(--color-dewdrop-light) 70%, 
+        transparent 100%);
+    border-radius: var(--radius-round);
+    box-shadow: 
+        0 0 3px rgba(255,255,255,0.7),
+        inset 0 1px 1px rgba(255,255,255,0.8);
+    animation: dewdrop-shimmer var(--duration-dewdrop-leaf) ease-in-out infinite 1s;
+}
+
+/* Posicionamiento y rotación de la primera hoja */
+.leaf.leaf-1 {
+    width: 82px;
+    height: 48px;
+    left: 50%;
+    transform: translateX(-95%) rotate(-38deg);
+    animation: leaf-sway var(--duration-sway-medium) ease-in-out infinite, leaf-appear var(--duration-very-slow) ease-out 1.5s both;
+}
+
+/* Posicionamiento y rotación de la segunda hoja */
+.leaf.leaf-2 {
+    width: 88px;
+    height: 52px;
+    bottom: 175px;
+    right: 50%;
+    transform: translateX(95%) rotate(33deg);
+    animation: leaf-sway-2 var(--duration-sway-short) ease-in-out infinite 0.3s, leaf-appear-2 var(--duration-very-slow) ease-out 1.8s both;
+}
